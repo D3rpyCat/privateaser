@@ -174,12 +174,13 @@ events.forEach(event => {
       event.commission.treasury = event.persons;
       com = com - event.persons;
       if (event.deductibleReduction) {
+        event.price += 200;
         event.commission.privateaser = com + event.persons;
       }
       else {
+        event.price += 5000;
         event.commission.privateaser = com;
       }
-
     }
   });
 });
