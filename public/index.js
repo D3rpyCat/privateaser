@@ -149,3 +149,33 @@ const actors = [{
 console.log(bars);
 console.log(events);
 console.log(actors);
+
+function sumBookingPrice(time, people, pricePerHour, pricePerPerson) {
+  var newPricePerPerson = pricePerPerson;
+  if(people >= 10 && people < 20){
+    newPricePerPerson = pricePerPerson-pricePerPerson*10/100;
+  }
+  if(people >= 20 && people < 60){
+    newPricePerPerson = pricePerPerson-pricePerPerson*30/100;
+  }
+  if(people >= 60){
+    newPricePerPerson = pricePerPerson-pricePerPerson*50/100;
+  }
+  return time * pricePerHour + people * newPricePerPerson;
+}
+
+events.forEach(event => {
+  bars.forEach(bar => {
+    if(event.barId == bar.id){
+      event.price=sumBookingPrice(event.time,event.persons,bar.pricePerHour,bar.pricePerPerson);
+      var com = event.price*30/100;
+      event.commission.insurance=com/2;
+      com = com - com/2;
+      event.commission.treasury=1;
+      com--;
+      event.commission.privateaser=com;
+    }
+  });
+});
+
+console.log(events);
